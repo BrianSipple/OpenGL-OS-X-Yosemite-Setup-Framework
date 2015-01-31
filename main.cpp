@@ -248,32 +248,12 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+
     // We can specify a Vertex Attribute pointer by is name...
     createVertexAttribPointerFromName(program, "position", GL_FLOAT, sizeof(GLfloat), GL_FALSE, 3, sizeof(vertex), offsetof(vertex, x));
 
-
-    //glBindBuffer(GL_ARRAY_BUFFER, buffers[1]);
-    //glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
-
     // ... or by its layout "location" number
     createVertexAttribPointerFromLayoutPos(1, GL_FLOAT, sizeof(GLfloat), GL_FALSE, 3, sizeof(vertex), offsetof(vertex, r));
-
-    // // Get a pointer to the buffer's data store
-    // void * ptr = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-    //
-    // // Copy data into it
-    // memcpy(ptr, vertices, sizeof(vertices));
-    //
-    // // Tell OPEN_GL that we're done with the pointer
-    // glUnmapBuffer(GL_ARRAY_BUFFER);
-
-
-    // Pass data to OPEN_GL for instertion into the buffer at offset zero.
-    //glClearBufferSubData(GL_ARRAY_BUFFER, GL_RGBA32F, 0, sizeof(vertices), GL_RGBA, GL_FLOAT, vertices);
-
-
-
-
 
     glUseProgram(program);
 
