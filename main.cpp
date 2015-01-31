@@ -2,7 +2,6 @@
 #define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdlib.h>
-#include <SOIL/SOIL.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -68,29 +67,6 @@ void keyPressCallback(GLFWwindow* window, int key, int scancode, int action, int
     } else if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
         return;
     }
-}
-
-
-// Create a texture from an image file
-GLuint loadTextureImg(const GLchar* path) {
-
-    GLuint texture;
-    glGenTextures(1, &texture);
-
-    int width, height;
-    unsigned char* image;
-
-    glBindTexture(GL_TEXTURE_2D, texture);
-    image = SOIL_load_image(path, &width, &height, 0, SOIL_LOAD_RGB);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    SOIL_free_image_data(image);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    return texture;
 }
 
 
