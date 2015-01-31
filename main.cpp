@@ -94,27 +94,6 @@ GLuint loadTextureImg(const GLchar* path) {
 }
 
 
-
-/**
-* Same as createProgramLinkedWithShaders*(), minus the linking,
-* to allow for additional, pre-link processing after the shaders are
-* attached,
-*/
-void createProgramWithShadersVF(
-    GLuint& program,
-    GLchar* vertexShaderPath,
-    GLchar* fragmentShaderPath)
-{
-    program = glCreateProgram();
-
-    mVertex = GL::Shader(GL_VERTEX_SHADER, vertexShaderPath);
-    mVertex.attachTo(program);
-
-    mFragment = GL::Shader(GL_FRAGMENT_SHADER, fragmentShaderPath);
-    mFragment.attachTo(program);
-}
-
-
 /**
 * Helper function around creating a vertex attribute pointer for
 * vertex floats.
