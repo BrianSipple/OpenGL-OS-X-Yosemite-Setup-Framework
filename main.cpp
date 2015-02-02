@@ -12,6 +12,7 @@
 
 
 /////// Globals ///////
+GLFWwindow* mWindow;
 GLuint program;
 GLuint vbo;     // Vertex Buffer Object
 GLuint vao;     // Vertex Array Object
@@ -129,12 +130,32 @@ void createVertexAttribPointerFromLayoutPos(
 void tearDown() {
 
     glDeleteProgram(program);
-
     glDeleteBuffers(1, &vbo);
-
     glDeleteVertexArrays(1, &vao);
-
     glfwTerminate();
+}
+
+void initWindow()
+{
+    // Set up OpenGL options
+    // Use version 4.1
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+    mWindow = glfwCreateWindow(800, 600, "OpenGL", nullptr, nullptr); // windowed
+    //GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL", glfwGetPrimaryMonitor(), nullptr); // fullscreen
+
+    // If the window fails to be created, print out the error,
+    // clean up GLFW and exit the program.
+    if (!mWindow) {
+        fprintf(stderr, "Failed to create OPENGL window");
+        glfwTerminate();
+        exit(EXIT_FAILURE);
+    }
 }
 
 
@@ -148,37 +169,16 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    // Set the error callback that we wired up above
-    glfwSetErrorCallback(errorCallback);
-
-    // Set up OpenGL options
-    // Use version 4.1
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-    GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL", nullptr, nullptr); // windowed
-    //GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL", glfwGetPrimaryMonitor(), nullptr); // fullscreen
-
-    // If the window fails to be created, print out the error,
-    // clean up GLFW and exit the program.
-    if (!window) {
-        fprintf(stderr, "Failed to create OPENGL window");
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
+    initWindow();
 
     // Make the OpenGL window context active
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(mWindow);
 
-    // Set the keyboard callback so that when we press ESC, it knows what to do.
-    glfwSetKeyCallback(window, keyPressCallback);
+    // Set the callbacks that we wired up above
+    glfwSetKeyCallback(mWindow, keyPressCallback);
+    glfwSetErrorCallback(errorCallback);
 
     printf("OpenGL version supported by this platform (%s): \n", glGetString(GL_VERSION));
-
 
     // Force GLEW to use a modern OpenGL method for checking
     // if a function is available.
@@ -210,7 +210,7 @@ int main() {
 
     glUseProgram(program);
 
-    while(!glfwWindowShouldClose(window)) {
+    while(!glfwWindowShouldClose(mWindow)) {
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -220,7 +220,7 @@ int main() {
 
         // Swap the back buffer and front buffer after
         // we've finished drawing
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(mWindow);
 
         glfwPollEvents();
     }
