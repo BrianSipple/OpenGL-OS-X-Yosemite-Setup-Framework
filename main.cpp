@@ -18,7 +18,7 @@ GLuint vao;     // Vertex Array Object
 
 GL::Shader mVertex, mGeometry, mFragment;
 
-struct vertex
+struct vertexPosColor
 {
     // Position
     float x;
@@ -31,7 +31,7 @@ struct vertex
     float b;
 };
 
-static const vertex vertices[] = {
+static const vertexPosColor vertices[] = {
     -0.5f,  0.5f, 0.5f,   1.0f, 0.0f, 0.0f,  // Red vertex, top-left
     0.5f,  0.5f, 0.5f,   0.0f, 1.0f, 0.0f,  // Green vertex, top-right
     0.5f, -0.5f, 0.5f,   0.0f, 0.0f, 1.0f,  // Blue verex, bottom-right
@@ -83,7 +83,6 @@ void createVertexAttribPointerFromName(
     GLuint program,
     char* attribName,
     GLenum type,
-    GLuint typeSize,
     GLboolean normalized,
     GLuint numItems,
     GLuint vertexElemLength,
@@ -109,7 +108,6 @@ void createVertexAttribPointerFromName(
 void createVertexAttribPointerFromLayoutPos(
     GLint layoutPosition,
     GLenum type,
-    GLuint typeSize,
     GLboolean normalized,
     GLuint numItems,
     GLuint vertexElemLength,
@@ -205,10 +203,10 @@ int main() {
 
 
     // We can specify a Vertex Attribute pointer by is name...
-    createVertexAttribPointerFromName(program, "position", GL_FLOAT, sizeof(GLfloat), GL_FALSE, 3, sizeof(vertex), offsetof(vertex, x));
+    createVertexAttribPointerFromName(program, "position", GL_FLOAT, GL_FALSE, 3, sizeof(vertexPosColor), offsetof(vertexPosColor, x));
 
     // ... or by its layout "location" number
-    createVertexAttribPointerFromLayoutPos(1, GL_FLOAT, sizeof(GLfloat), GL_FALSE, 3, sizeof(vertex), offsetof(vertex, r));
+    createVertexAttribPointerFromLayoutPos(1, GL_FLOAT, GL_FALSE, 3, sizeof(vertexPosColor), offsetof(vertexPosColor, r));
 
     glUseProgram(program);
 
