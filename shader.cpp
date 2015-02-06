@@ -73,6 +73,30 @@ namespace GL {
 
 
     /**
+     * Creates a program linked with a Fragment shader
+     */
+    void Shader::createProgramLinkedWithShadersF(
+        GLuint& program,
+        Shader& fragmentShaderConst,
+        GLchar* fragmentShaderPath
+    )
+    {
+        printf("Creating program linked with Vertex Shader");
+
+        program = glCreateProgram();
+
+        fragmentShaderConst = Shader(GL_FRAGMENT_SHADER, fragmentShaderPath);
+        fragmentShaderConst.attachTo(program);
+
+        glLinkProgram(program);
+
+        fragmentShaderConst.detachFrom(program);
+    }
+
+
+
+
+    /**
      * Creates a program linked with a vertex and fragment shader
      */
     void Shader::createProgramLinkedWithShadersVF(
