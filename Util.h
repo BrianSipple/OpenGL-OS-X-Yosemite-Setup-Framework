@@ -2,7 +2,14 @@
 // return the contents of that file as a C string.
 #include <stdlib.h>
 #include <stdio.h>
+#include <GL/glew.h>
 
 namespace Util {
-    char* fileToBuffer(char *file);
+    class Files {
+    public:
+
+        static char* fileToBuffer(char *file);
+
+        static void loadKtx(GLchar* filePath);
+    };
 }

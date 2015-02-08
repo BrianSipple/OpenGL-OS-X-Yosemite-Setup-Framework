@@ -3,7 +3,9 @@
 #include "Util.h"
 
 namespace Util {
-    char* fileToBuffer(char *file) {
+
+
+    char* Files::fileToBuffer(char *file) {
 
         FILE *fptr;
         long length;
@@ -23,4 +25,5 @@ namespace Util {
 
         return buf; /* Return the buffer */
     }
+
 }
