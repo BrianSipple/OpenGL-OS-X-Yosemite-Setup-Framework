@@ -11,7 +11,7 @@ namespace GL {
     Shader::Shader(GLenum type, char* location) {
         _handle = glCreateShader(type);
 
-        GLchar* src = Util::fileToBuffer(location);
+        GLchar* src = Util::Files::fileToBuffer(location);
         glShaderSource(_handle, 1, (const GLchar**)&src, NULL);
 
         printf("Compiling Shader: %s ID: %i\n", location, _handle);

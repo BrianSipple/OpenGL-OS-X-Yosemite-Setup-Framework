@@ -27,7 +27,7 @@ namespace GL {
         Shader& fragmentShaderConst,   // pointer to unCompiled shader object
         GLchar* fragmentShaderPath    // path to the shader source
         );
-        
+
         // Creates a program linked with vertex, geometry and fragment shaders
         static void createProgramLinkedWithShadersVGF(
             GLuint& program,            // pointer to the program
